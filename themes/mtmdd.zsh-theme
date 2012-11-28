@@ -28,8 +28,10 @@ table=(
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git svn
 zstyle ':vcs_info:git*' check-for-changes true
-zstyle ':vcs_info:git*' formats "%{$FG[024]%}-%{$reset_color%}${blue_op}%s${at_sym}%r${colon_sym}%b %{$fg[red]%}%c%{$fg_bold[red]%}%u%{$reset_color%}${blue_cp}"
-zstyle ':vcs_info:git*' actionformats "%{$FG[024]%}-%{$reset_color%}${blue_op}%s${at_sym}%r${colon_sym}%b ${red_lt}%a${red_gt} %{$fg[red]%}%c%{$fg_bold[red]%}%u%{$reset_color%}${blue_cp}"
+zstyle ':vcs_info:git*' unstagedstr "%{$fg[yellow]%}"
+zstyle ':vcs_info:git*' stagedstr "%{$fg[red]%}"
+zstyle ':vcs_info:git*' formats "%{$FG[024]%}-%{$reset_color%}${blue_op}%s${at_sym}%r${colon_sym}%{$fg[white]%}%u%c%b%{$reset_color%}${blue_cp}"
+zstyle ':vcs_info:git*' actionformats "%{$FG[024]%}-%{$reset_color%}${blue_op}%s${at_sym}%r${colon_sym}%{$fg[white]%}%u%c%b%{%reset_color%}${red_lt}%a${red_gt}${blue_cp}"
 
 mtmdd_precmd() {
     vcs_info

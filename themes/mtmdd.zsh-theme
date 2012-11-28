@@ -9,7 +9,12 @@ local blue_op="%{$fg[blue]%}[%{$reset_color%}"
 local blue_cp="%{$fg[blue]%}]%{$reset_color%}"
 local upper_tri="%(?,%{$fg[green]%},%{$fg[red]%})◸%{$reset_color%}"
 local lower_tri="%(?,%{$fg[green]%},%{$fg[red]%})◺%{$reset_color%}"
+local user_host="%(#,%{$fg[red]%},%{$fg[white]%})%n%{$reset_color%}${at_sym}%{$fg[white]%}%m%{$reset_color%}"
+local time="%T"
+local hist_no="${blue_op}%h${at_sym}${time}${blue_cp}"
+local cur_cmd="${blue_op}%_${blue_cp}"
 
+# Table flip
 typeset -A table;
 table=(
     flip "%{$fg[yellow]%}%? %{$fg[red]%}（╯°□°）╯︵ ┻━┻"
@@ -17,12 +22,6 @@ table=(
     caine "%{$fg[green]%}(⌐•_•)"
     )
 
-local user_host="%(#,%{$fg[red]%},%{$fg[white]%})%n%{$reset_color%}${at_sym}%{$fg[white]%}%m%{$reset_color%}"
-local time="%T"
-local hist_no="${blue_op}%h${at_sym}${time}${blue_cp}"
-
-local cur_cmd="${blue_op}%_${blue_cp}"
-PROMPT2="${cur_cmd}> "
 
 mtmdd_precmd() {
     if [[ $? -ne 0 ]]; then
@@ -59,5 +58,5 @@ left_prompt() {
 }
 
 PROMPT='$(left_prompt)'
+PROMPT2="${cur_cmd}> "
 RPROMPT='$(right_prompt)'
-

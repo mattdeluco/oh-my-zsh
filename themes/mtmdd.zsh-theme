@@ -34,11 +34,10 @@ zstyle ':vcs_info:git*' formats "%{$FG[024]%}-%{$reset_color%}${blue_op}%s${at_s
 zstyle ':vcs_info:git*' actionformats "%{$FG[024]%}-%{$reset_color%}${blue_op}%s${at_sym}%r${colon_sym}%{$fg[white]%}%u%c%b%{%reset_color%}${red_lt}%a${red_gt}${blue_cp}"
 
 mtmdd_precmd() {
-    vcs_info
-
     if [[ $? -ne 0 ]]; then
         export table_status="flip"
     fi
+    vcs_info
 }
 
 mtmdd_preexec() {

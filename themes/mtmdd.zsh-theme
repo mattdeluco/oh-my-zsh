@@ -20,9 +20,9 @@ local cur_cmd="${blue_op}%_${blue_cp}"
 # Table flip
 typeset -A table;
 table=(
-    flip "%{$fg[yellow]%}%? %{$fg[red]%}（╯°□°）╯︵ ┻━┻"
-    upright "%{$fg[yellow]%}┳━┳ ~ ◞(◦_◦◞)"
-    caine "%{$fg[green]%}(⌐•_•)"
+    flip "%{$fg[yellow]%}%? %{$fg[red]%}（╯°□°）╯︵ ┻━┻%{$reset_color%}"
+    upright "%{$fg[yellow]%}┳━┳ ~ ◞(◦_◦◞)%{$reset_color%}"
+    caine "%{$fg[green]%}(⌐•_•)%{$reset_color%}"
     )
 
 # Version Control Systems
@@ -51,7 +51,7 @@ mtmdd_preexec() {
 }
 
 right_prompt() {
-    echo "${table[${table_status:-caine}]}%{$reset_color%}"
+    echo "${table[${table_status:-caine}]}"
 }
 
 left_prompt() {

@@ -5,6 +5,7 @@ add-zsh-hook preexec mtmdd_preexec
 
 local at_sym="%{$fg_bold[black]%}@%{$reset_color%}"
 local colon_sym="%{$fg_bold[black]%}:%{$reset_color%}"
+local fslash_sym="%{$fg_bold[black]%}/%{$reset_color%}"
 local blue_op="%{$fg[blue]%}[%{$reset_color%}"
 local blue_cp="%{$fg[blue]%}]%{$reset_color%}"
 local red_lt="%{fg[red]%}<%{$reset_color%}"
@@ -30,8 +31,9 @@ zstyle ':vcs_info:*' enable git svn
 zstyle ':vcs_info:git*' check-for-changes true
 zstyle ':vcs_info:git*' unstagedstr "%{$fg[yellow]%}"
 zstyle ':vcs_info:git*' stagedstr "%{$fg[red]%}"
-zstyle ':vcs_info:git*' formats "%{$FG[024]%}-%{$reset_color%}${blue_op}%s${at_sym}%r${colon_sym}%{$fg[white]%}%u%c%b%{$reset_color%}${blue_cp}"
-zstyle ':vcs_info:git*' actionformats "%{$FG[024]%}-%{$reset_color%}${blue_op}%s${at_sym}%r${colon_sym}%{$fg[white]%}%u%c%b%{%reset_color%}${red_lt}%a${red_gt}${blue_cp}"
+local git_branch="%{$fg[white]%}%u%c%b%{$reset_color%}"
+zstyle ':vcs_info:git*' formats "${blue_op}%s${at_sym}%{$fg[white]%}%r%{$reset_color%}${fslash_sym}${git_branch}${colon_sym}%{$fg[white]%}%S%{$reset_color%}${blue_cp}"
+zstyle ':vcs_info:git*' actionformats "${blue_op}%s${at_sym}%r${colon_sym}%{$fg[white]%}%u%c%b%{%reset_color%}${red_lt}%a${red_gt}${blue_cp}"
 
 mtmdd_precmd() {
     if [[ $? -ne 0 ]]; then
@@ -62,10 +64,10 @@ left_prompt() {
     [[ ! ${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/} = "" ]] && priv_colour="%{$fg[red]%}"
     local priv_p="${priv_colour}%#%{$reset_color%}"
 
-    local top_p="${upper_tri}${blue_op}${user_host}${colon_sym}${path_p}${blue_cp}${vcs_info_msg_0_}"
-    local bottom_p="${lower_tri}${hist_no}${priv_p} "
+    local top_p="${blue_op}${user_host}${colon_sym}${path_p}${blue_cp}"
+    local bottom_p="${hist_no}${priv_p} "
 
-    echo "${top_p}\n${bottom_p}"
+    echo "${upper_tri}${vcs_info_msg_0_:-$top_p}\n${lower_tri}${bottom_p}"
 
 }
 

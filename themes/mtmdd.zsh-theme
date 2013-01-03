@@ -51,23 +51,23 @@ mtmdd_preexec() {
 }
 
 right_prompt() {
-    echo "${table[${table_status:-caine}]}"
+    printf '%s' "${table[${table_status:-caine}]}"
 }
 
 left_prompt() {
 
     local path_colour="%{$fg[white]%}"
-    [[ ! "${${PWD%${HOME}*}}" = "" ]] && path_colour="%{$fg[red]%}"
+    [[ -n ${${PWD%${HOME}*}} ]] && path_colour="%{$fg[red]%}"
     local path_p="${path_colour}%~%{$reset_color%}"
 
     local priv_colour="%{$fg[white]%}"
-    [[ ! ${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/} = "" ]] && priv_colour="%{$fg[red]%}"
+    [[ -n ${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/} ]] && priv_colour="%{$fg[red]%}"
     local priv_p="${priv_colour}%#%{$reset_color%}"
 
     local top_p="${blue_op}${user_host}${colon_sym}${path_p}${blue_cp}"
     local bottom_p="${hist_no}${priv_p} "
 
-    echo "${upper_tri}${vcs_info_msg_0_:-$top_p}\n${lower_tri}${bottom_p}"
+    printf '%s\n%s' "${upper_tri}${vcs_info_msg_0_:-$top_p}" "${lower_tri}${bottom_p}"
 
 }
 

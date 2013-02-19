@@ -33,7 +33,7 @@ zstyle ':vcs_info:*' unstagedstr "%{$fg[yellow]%}"
 zstyle ':vcs_info:*' stagedstr "%{$fg[red]%}"
 local git_branch="%{$fg[white]%}%u%c%b%{$reset_color%}"
 zstyle ':vcs_info:*' formats "${blue_op}%s${at_sym}%{$fg[white]%}%r%{$reset_color%}${fslash_sym}${git_branch}${colon_sym}%{$fg[white]%}%S%{$reset_color%}${blue_cp}"
-zstyle ':vcs_info:*' actionformats "${blue_op}%s${at_sym}%r${colon_sym}%{$fg[white]%}%u%c%b%{$reset_color%}${red_lt}%a${red_gt}${blue_cp}"
+zstyle ':vcs_info:*' actionformats "${blue_op}%s${at_sym}%r${colon_sym}%{$fg[white]%}%u%c%b%{$reset_color%}${red_lt}%{$fg[white]%}%a%{$reset_color%}${red_gt}${blue_cp}"
 
 mtmdd_precmd() {
     if [[ $? -ne 0 ]]; then

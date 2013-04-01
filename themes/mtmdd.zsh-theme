@@ -17,14 +17,6 @@ local time="%T"
 local hist_no="${blue_op}%h${at_sym}${time}${blue_cp}"
 local cur_cmd="${blue_op}%_${blue_cp}"
 
-# Table flip
-typeset -A table;
-table=(
-    flip "%{$fg[yellow]%}%? %{$fg[red]%}（╯°□°）╯︵ ┻━┻%{$reset_color%}"
-    upright "%{$fg[yellow]%}┳━┳ ~ ◞(◦_◦◞)%{$reset_color%}"
-    caine "%{$fg[green]%}(⌐•_•)%{$reset_color%}"
-    )
-
 # Version Control Systems
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git svn
@@ -36,22 +28,13 @@ zstyle ':vcs_info:*' formats "${blue_op}%s${at_sym}%{$fg[white]%}%r%{$reset_colo
 zstyle ':vcs_info:*' actionformats "${blue_op}%s${at_sym}%r${colon_sym}%{$fg[white]%}%u%c%b%{$reset_color%}${red_lt}%{$fg[white]%}%a%{$reset_color%}${red_gt}${blue_cp}"
 
 mtmdd_precmd() {
-    if [[ $? -ne 0 ]]; then
-        export table_status="flip"
-    fi
     vcs_info
 }
 
 mtmdd_preexec() {
-    if [[ $table_status = "flip" ]]; then
-        export table_status="upright"
-    elif [[ $table_status = "upright" ]]; then
-        export table_status="caine"
-    fi
 }
 
 right_prompt() {
-    printf '%s' "${table[${table_status:-caine}]}"
 }
 
 left_prompt() {
@@ -73,4 +56,6 @@ left_prompt() {
 
 PROMPT='$(left_prompt)'
 PROMPT2="${cur_cmd}> "
-RPROMPT='$(right_prompt)'
+
+# TODO: Make use of RPROMPT - vcs info?
+#RPROMPT='$(right_prompt)'

@@ -19,7 +19,7 @@ local cur_cmd="${blue_op}%_${blue_cp}"
 
 # Version Control Systems
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' enable git svn hg
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr "%{$fg[yellow]%}"
 zstyle ':vcs_info:*' stagedstr "%{$fg[red]%}"
@@ -35,6 +35,9 @@ mtmdd_preexec() {
 }
 
 right_prompt() {
+    local python_virtualenv=${VIRTUAL_ENV##*/}
+    local venv_prompt="{%{$fg[green]%}${python_virtualenv}%{$reset_color%}}"
+    printf '%s' "${python_virtualenv:+$venv_prompt}"
 }
 
 left_prompt() {
@@ -56,6 +59,4 @@ left_prompt() {
 
 PROMPT='$(left_prompt)'
 PROMPT2="${cur_cmd}> "
-
-# TODO: Make use of RPROMPT - vcs info?
-#RPROMPT='$(right_prompt)'
+RPROMPT='$(right_prompt)'

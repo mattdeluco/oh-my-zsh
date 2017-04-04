@@ -1,5 +1,6 @@
 # Adapted from the funky theme
 
+autoload -U add-zsh-hook
 add-zsh-hook precmd mtmdd_precmd
 add-zsh-hook preexec mtmdd_preexec
 

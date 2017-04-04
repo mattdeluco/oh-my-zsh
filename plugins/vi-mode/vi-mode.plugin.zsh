@@ -1,16 +1,39 @@
-function zle-line-init zle-keymap-select {
+# Updates editor information when the keymap changes.
+function zle-keymap-select() {
   zle reset-prompt
+  zle -R
 }
 
-zle -N zle-line-init
-zle -N zle-keymap-select
+# Ensure that the prompt is redrawn when the terminal size changes.
+TRAPWINCH() {
+  zle &&  zle -R
+}
 
-#changing mode clobbers the keybinds, so store the keybinds before and execute 
-#them after
-binds=`bindkey -L`
+zle -N zle-keymap-select
+zle -N edit-command-line
+
+
 bindkey -v
-for bind in ${(@f)binds}; do eval $bind; done
-unset binds
+
+# allow v to edit the command line (standard behaviour)
+autoload -Uz edit-command-line
+bindkey -M vicmd 'v' edit-command-line
+
+# allow ctrl-p, ctrl-n for navigate history (standard behaviour)
+bindkey '^P' up-history
+bindkey '^N' down-history
+
+# allow ctrl-h, ctrl-w, ctrl-? for char and word deletion (standard behaviour)
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+
+# allow ctrl-r to perform backward search in history
+bindkey '^r' history-incremental-search-backward
+
+# allow ctrl-a and ctrl-e to move to beginning/end of line
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
 
 # if mode indicator wasn't setup by theme, define default
 if [[ "$MODE_INDICATOR" == "" ]]; then

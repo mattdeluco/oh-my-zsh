@@ -1,5 +1,6 @@
 # Adapted from the funky theme
 
+autoload -U add-zsh-hook
 add-zsh-hook precmd mtmdd_precmd
 add-zsh-hook preexec mtmdd_preexec
 
@@ -19,7 +20,7 @@ local cur_cmd="${blue_op}%_${blue_cp}"
 
 # Version Control Systems
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' enable git svn hg
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr "%{$fg[yellow]%}"
 zstyle ':vcs_info:*' stagedstr "%{$fg[red]%}"

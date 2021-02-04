@@ -35,6 +35,9 @@ mtmdd_preexec() {
 }
 
 right_prompt() {
+    local python_virtualenv=${VIRTUAL_ENV##*/}
+    local venv_prompt="{%{$fg[green]%}${python_virtualenv}%{$reset_color%}}"
+    printf '%s' "${python_virtualenv:+$venv_prompt}"
 }
 
 left_prompt() {
@@ -56,6 +59,4 @@ left_prompt() {
 
 PROMPT='$(left_prompt)'
 PROMPT2="${cur_cmd}> "
-
-# TODO: Make use of RPROMPT - vcs info?
-#RPROMPT='$(right_prompt)'
+RPROMPT='$(right_prompt)'
